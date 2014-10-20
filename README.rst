@@ -5,7 +5,9 @@ Two Python code compare using timeit module.
 
 Usage
 -----
-module::
+via module
+
+.. code-block:: python
 
     # rev.py
     import slowfast
@@ -15,6 +17,8 @@ module::
     two = "l = sorted(l, reverse=True)"
     setup = "l = [1, 2, 3, 5]"
     slowfast.compare(title, one, two, setup)
+
+compare::
 
     $ python rev.py
     ===== sorted reverse list =====
