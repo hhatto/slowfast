@@ -1,7 +1,5 @@
 from timeit import timeit
 
-NUM = 50000
-
 
 def _print_result(one_time, one_pystm, two_time, two_pystm):
     if one_time > two_time:
@@ -21,11 +19,11 @@ def _print_result(one_time, one_pystm, two_time, two_pystm):
     print("%.2f times faster" % (slow_time/fast_time))
 
 
-def compare(title, one, two, setup='pass'):
+def compare(title, one, two, setup='pass', number=10000):
     print("===== %s =====" % title)
     while True:
-        _one = timeit(one, setup=setup, number=NUM)
-        _two = timeit(two, setup=setup, number=NUM)
+        _one = timeit(one, setup=setup, number=number)
+        _two = timeit(two, setup=setup, number=number)
         if _one == _two:
             continue
         _print_result(_one, one, _two, two)
@@ -39,11 +37,32 @@ if __name__ == '__main__':
     #    "print(1)",
     #    "print 1",
     #)
+    NUM = 500000
+    compare(
+        "format string 1",
+        """\
+s = "Hello, {} {}".format(first, second)""",
+        """\
+s = "Hello, {first} {second}".format(first=first, second=second)""",
+        setup="""first = 'jim';second = 'hope'""",
+        number=NUM,
+    )
+
+    compare(
+        "format string 2",
+        """\
+s = "Hello, %s %s" % (first, second)""",
+        """\
+s = "Hello, {} {}".format(first, second)""",
+        setup="""first = 'jim';second = 'hope'""",
+        number=NUM,
+    )
 
     compare(
         "to string",
         "[str(i) for i in range(100)]",
         "map(str, [i for i in range(100)])",
+        number=NUM,
     )
 
     compare(
@@ -53,6 +72,7 @@ s.find('c') != -1""",
         """\
 'c' in s""",
         setup="s = 'abcde'",
+        number=NUM,
     )
 
     compare(
@@ -62,6 +82,7 @@ l.reverse()""",
         """\
 l = [i for i in reversed(l)]""",
         setup="l = [1, 2, 3, 5]",
+        number=NUM,
     )
 
     compare(
@@ -72,4 +93,5 @@ l.reverse()""",
         """\
 l = sorted(l, reverse=True)""",
         setup="""l = [1, 2, 3, 5]""",
+        number=NUM,
     )
