@@ -60,8 +60,8 @@ s = "Hello, {} {}".format(first, second)""",
 
     compare(
         "to string",
-        "[str(i) for i in range(100)]",
-        "map(str, [i for i in range(100)])",
+        "[str(i) for i in range(10)]",
+        "map(str, [i for i in range(10)])",
         number=NUM,
     )
 
@@ -93,5 +93,32 @@ l.reverse()""",
         """\
 l = sorted(l, reverse=True)""",
         setup="""l = [1, 2, 3, 5]""",
+        number=NUM,
+    )
+
+    compare(
+        "dict",
+        """\
+d = {}""",
+        """\
+d = dict()""",
+        number=NUM,
+    )
+
+    compare(
+        "tuple",
+        """\
+t = ()""",
+        """\
+t = tuple()""",
+        number=NUM,
+    )
+
+    compare(
+        "list",
+        """\
+l = []""",
+        """\
+l = list()""",
         number=NUM,
     )
