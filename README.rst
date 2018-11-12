@@ -3,6 +3,14 @@ slowfast
 Two Python code compare using timeit module.
 
 
+Installation
+------------
+
+from pip::
+
+   $ pip install git+https://github.com/hhatto/slowfast.git
+
+
 Usage
 -----
 via module
